@@ -1,5 +1,6 @@
 {
 	"type": "module",
+	"name": "Digory",
 	"scripts": {
 		"build": "tsc",
 		"debug": "tsx --inspect src/main.ts"
