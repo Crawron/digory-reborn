@@ -2,7 +2,6 @@
 	"type": "module",
 	"scripts": {
 		"build": "tsc",
-		"start": "node build/main.js",
 		"debug": "tsx --inspect src/main.ts"
 	},
 	"devDependencies": {
