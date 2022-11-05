@@ -3,7 +3,6 @@
 		"builder": "NIXPACKS"
 	},
 	"deploy": {
-		"restartPolicyType": "ALWAYS",
-		"startCommand": "node build/main.js"
+		"restartPolicyType": "ALWAYS"
 	}
 }
