@@ -1,6 +1,7 @@
 {
 	"scripts": {
-		"start": "tsx src/main.ts"
+		"start": "tsx src/main.ts",
+		"debug": "tsx --inspect src/main.ts"
 	},
 	"devDependencies": {
 		"prettier": "^2.7.1",
