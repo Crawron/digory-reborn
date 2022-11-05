@@ -1,4 +1,5 @@
 import { Message } from "discord.js"
+import chroma from "chroma-js"
 import { isTruthy } from "./helpers.js"
 import { getEmoji, redisGet, redisSmembers } from "./redis.js"
 
@@ -32,13 +33,14 @@ async function createMirrorMessage(message: Message): Promise<MirrorMessage> {
 }
 
 type MirrorBunch = {
-	/* color: string */
+	color: number
 	id: string
 	timestamp: number
 	url: string
 	messages: MirrorMessage[]
 }
 
+const colorMap = new Map<string, number>()
 function bunchMessages(messages: MirrorMessage[]): MirrorBunch[] {
 	const bunches: MirrorBunch[] = []
 
@@ -49,7 +51,14 @@ function bunchMessages(messages: MirrorMessage[]): MirrorBunch[] {
 	for (const message of messages) {
 		if (lastChannel !== message.channelId) {
 			if (currentBunch) bunches.push(currentBunch)
+
+			if (!colorMap.has(message.channelId)) {
+				const newColor = chroma.hsl(Math.random() * 360, 1, 0.7).num()
+				colorMap.set(message.channelId, newColor)
+			}
+
 			currentBunch = {
+				color: colorMap.get(message.channelId) ?? 0,
 				id: message.channelId,
 				timestamp: message.timestamp,
 				messages: [],
@@ -86,11 +95,14 @@ function renderMessage({
 		.join("")
 }
 
-function renderBunch({ id, timestamp, url, messages }: MirrorBunch): string {
+function renderBunch({ id, timestamp, url, messages, color }: MirrorBunch): {
+	description: string
+	color: number
+} {
 	const header = `<#${id}> <t:${timestamp}:D> [Scroll here](${url})\n\n`
 	const content = messages.map(renderMessage).join("\n").trim()
 
-	return [header, content].filter(isTruthy).join("")
+	return { description: [header, content].filter(isTruthy).join(""), color }
 }
 
 //
@@ -110,9 +122,10 @@ export async function handleMirror(message: Message) {
 	messages.set(message.id, await createMirrorMessage(message))
 	let bunches = bunchMessages([...messages.values()]).map(renderBunch)
 
-	const descriptionLimit = bunches.some((b) => b.length > 4096)
+	const descriptionLimit = bunches.some((b) => b.description.length > 4096)
 	const embedLimit = bunches.length > 10
-	const totalLimit = bunches.reduce((a, b) => a + b.length, 0) > 6000
+	const totalLimit =
+		bunches.reduce((a, b) => a + b.description.length, 0) > 6000
 
 	if (descriptionLimit || embedLimit || totalLimit) {
 		messages.clear()
@@ -122,7 +135,7 @@ export async function handleMirror(message: Message) {
 	}
 
 	const messageToSend = {
-		embeds: bunches.map((b) => ({ description: b })),
+		embeds: bunches,
 	}
 
 	if (!targetMessage) {
