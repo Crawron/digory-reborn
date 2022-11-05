@@ -1,6 +1,6 @@
 import { Message } from "discord.js"
-import { isTruthy } from "./helpers"
-import { getEmoji, redisGet, redisSmembers } from "./redis"
+import { isTruthy } from "./helpers.js"
+import { getEmoji, redisGet, redisSmembers } from "./redis.js"
 
 export const mirrorTargetKey = "mirrorTarget"
 export const mirrorSourceKey = "mirrorSource"

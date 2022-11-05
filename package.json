@@ -1,6 +1,8 @@
 {
+	"type": "module",
 	"scripts": {
-		"start": "tsx src/main.ts",
+		"build": "tsc",
+		"start": "node build/main.ts",
 		"debug": "tsx --inspect src/main.ts"
 	},
 	"devDependencies": {

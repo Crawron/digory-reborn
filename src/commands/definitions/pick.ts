@@ -1,6 +1,6 @@
 import { ApplicationCommandOptionType } from "discord.js"
-import { arrRand, isTruthy } from "../../helpers"
-import { CommandDefinition } from "../handler"
+import { arrRand, isTruthy } from "../../helpers.js"
+import { CommandDefinition } from "../handler.js"
 
 export const pickCommand: CommandDefinition = {
 	definition: {

@@ -1,4 +1,4 @@
-import { CommandDefinition } from "../handler"
+import { CommandDefinition } from "../handler.js"
 
 export const restartCommand: CommandDefinition = {
 	definition: {

@@ -1,13 +1,13 @@
 import "dotenv/config"
 
 import { Client } from "discord.js"
-import { handleCommands } from "./commands/handler"
-import { petCommand } from "./commands/definitions/pet"
-import { restartCommand } from "./commands/definitions/restart"
-import { pickCommand } from "./commands/definitions/pick"
-import { env } from "./env"
-import { mirrorCommandGroup } from "./commands/definitions/mirror"
-import { handleMirror } from "./message-mirror"
+import { handleCommands } from "./commands/handler.js"
+import { petCommand } from "./commands/definitions/pet.js"
+import { restartCommand } from "./commands/definitions/restart.js"
+import { pickCommand } from "./commands/definitions/pick.js"
+import { env } from "./env.js"
+import { mirrorCommandGroup } from "./commands/definitions/mirror.js"
+import { handleMirror } from "./message-mirror.js"
 
 const discordClient = new Client({
 	intents: ["GuildMessages", "Guilds", "MessageContent"],

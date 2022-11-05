@@ -1,5 +1,5 @@
-import Redis, { Command } from "ioredis"
-import { env } from "./env"
+import Redis from "ioredis"
+import { env } from "./env.js"
 
 const redisClient = new Redis(env.REDIS_URL)
 

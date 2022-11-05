@@ -1,7 +1,7 @@
 import { ApplicationCommandOptionType, ChannelType, Guild } from "discord.js"
-import { mirrorSourceKey, mirrorTargetKey } from "../../message-mirror"
-import { redisSadd, redisSet, redisSrem } from "../../redis"
-import { CommandDefinition } from "../handler"
+import { mirrorSourceKey, mirrorTargetKey } from "../../message-mirror.js"
+import { redisSadd, redisSet, redisSrem } from "../../redis.js"
+import { CommandDefinition } from "../handler.js"
 
 export const mirrorCommandGroup: CommandDefinition = {
 	definition: {
