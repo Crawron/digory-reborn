@@ -7,6 +7,7 @@ export const mirrorCommandGroup: CommandDefinition = {
 	definition: {
 		name: "mirror",
 		description: "Command group for message mirror",
+		defaultMemberPermissions: "Administrator",
 		options: [
 			{
 				name: "here",
