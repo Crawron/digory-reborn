@@ -3,7 +3,7 @@
 	"name": "digory",
 	"scripts": {
 		"build": "tsc",
-		"debug": "tsx --inspect src/main.ts"
+		"dev": "tsx --inspect src/main.ts"
 	},
 	"devDependencies": {
 		"@types/chroma-js": "^2.1.4",
