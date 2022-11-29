@@ -18,7 +18,7 @@ export const avatarsCommand: CommandDefinition = {
 
 		if (!players) return int.reply("No players found")
 
-		int.reply(
+		await int.reply(
 			players.map(([name]) => name).join(", ") +
 				"\n```\n" +
 				players.map(([, avatarUrl]) => avatarUrl).join("\n") +
