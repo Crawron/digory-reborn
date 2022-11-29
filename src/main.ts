@@ -13,7 +13,7 @@ import { countMessages } from "./message-counter.js"
 import { avatarsCommand } from "./commands/definitions/avatars.js"
 
 const discordClient = new Client({
-	intents: ["GuildMessages", "Guilds", "MessageContent"],
+	intents: ["GuildMessages", "Guilds", "MessageContent", "GuildMembers"],
 })
 
 handleCommands(discordClient, env.DISCORD_SERVER_ID, [
