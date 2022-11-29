@@ -10,6 +10,7 @@ import { mirrorCommandGroup } from "./commands/definitions/mirror.js"
 import { handleMirror } from "./message-mirror.js"
 import { counterCommandGroup } from "./commands/definitions/counter.js"
 import { countMessages } from "./message-counter.js"
+import { avatarsCommand } from "./commands/definitions/avatars.js"
 
 const discordClient = new Client({
 	intents: ["GuildMessages", "Guilds", "MessageContent"],
@@ -21,6 +22,7 @@ handleCommands(discordClient, env.DISCORD_SERVER_ID, [
 	pickCommand,
 	mirrorCommandGroup,
 	counterCommandGroup,
+	avatarsCommand,
 ])
 
 discordClient.on("ready", () => console.info("🦮 Ready"))
