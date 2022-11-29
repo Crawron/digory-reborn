@@ -3,7 +3,8 @@
 	"name": "digory",
 	"scripts": {
 		"build": "tsc",
-		"dev": "tsx --inspect src/main.ts"
+		"dev": "tsx --inspect src/main.ts",
+		"preview": "pnpm build && node build/main.js"
 	},
 	"devDependencies": {
 		"@types/chroma-js": "^2.1.4",
