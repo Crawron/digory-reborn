@@ -8,11 +8,12 @@ export const avatarsCommand: CommandDefinition = {
 	},
 
 	async handle(int) {
-		if (!int.inGuild()) return int.reply("Guild only command")
+		if (!int.guild) return int.reply("Guild only command")
 		const playerRole = "1003392522061623337"
-		const players = int.guild?.members.cache
+
+		const players = int.guild.members.cache
 			.filter((m) => m.roles.cache.has(playerRole))
-			.map((p) => [p.displayName, p.avatarURL({ size: 128 })])
+			.map((p) => [p.user.username, p.displayAvatarURL({ size: 128 })])
 			.sort()
 
 		if (!players) return int.reply("No players found")
@@ -23,5 +24,8 @@ export const avatarsCommand: CommandDefinition = {
 				players.map(([, avatarUrl]) => avatarUrl).join("\n") +
 				"```"
 		)
+
+		int.followUp(int.guild.roles.cache.map((r) => r.name).join(", "))
+		int.followUp(int.guild.members.cache.map((r) => r.user.username).join(", "))
 	},
 }
