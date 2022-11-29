@@ -5,7 +5,7 @@ import {
 	redisGet,
 	redisHgetall,
 	redisSet,
-} from "./redis"
+} from "./redis.js"
 
 const counterKey = "count"
 const clearDateKey = "count.clearDate"
