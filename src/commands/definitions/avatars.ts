@@ -24,8 +24,5 @@ export const avatarsCommand: CommandDefinition = {
 				players.map(([, avatarUrl]) => avatarUrl).join("\n") +
 				"```"
 		)
-
-		int.followUp(int.guild.roles.cache.map((r) => r.name).join(", "))
-		int.followUp(int.guild.members.cache.map((r) => r.user.username).join(", "))
 	},
 }
