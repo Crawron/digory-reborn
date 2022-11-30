@@ -127,7 +127,13 @@ const announceMessageCommand: CommandDefinition["handle"] = async (int) => {
 
 	const targets = await redisSmembers(announceTargetKey)
 
-	await int.deferReply()
+	int.reply(
+		`Would reply to ${targets.length} channels\n${targets
+			.map((t) => `<#${t}>`)
+			.join("\n")}`
+	)
+
+	/* await int.deferReply()
 
 	for (const target of targets) {
 		const channel = int.guild?.channels.cache.get(target)
@@ -136,5 +142,5 @@ const announceMessageCommand: CommandDefinition["handle"] = async (int) => {
 		await channel.send({ content, allowedMentions: {} })
 	}
 
-	int.editReply(`Sent message\n>>> ${content}`)
+	int.editReply(`Sent message\n>>> ${content}`) */
 }
