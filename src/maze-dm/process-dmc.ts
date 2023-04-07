@@ -1,7 +1,12 @@
 import { Message } from "discord.js"
 import { Maze } from "./maze"
 import { travelMaze } from "./travel-maze"
-import { testGreenMaze, testPinkMaze } from "./maze-definitions"
+import {
+	greenMaze,
+	pinkMaze,
+	testGreenMaze,
+	testPinkMaze,
+} from "./maze-definitions"
 
 let dmOngoing = false
 
@@ -31,7 +36,7 @@ const whims: Player = {
 	moveRefresh: 0,
 	home: { x: 0, y: 9 },
 	corners: { tl: false, tr: false, bl: true, br: false },
-	maze: testPinkMaze,
+	maze: pinkMaze,
 }
 
 const wimpz: Player = {
@@ -41,7 +46,7 @@ const wimpz: Player = {
 	moveRefresh: 0,
 	home: { x: 9, y: 0 },
 	corners: { tl: false, tr: true, bl: false, br: false },
-	maze: testGreenMaze,
+	maze: greenMaze,
 }
 
 const redst: Player = {
@@ -67,13 +72,16 @@ const craww: Player = {
 const players: Record<string, Player> = {
 	"144505214970363905": wimpz,
 	"306489597024796672": whims,
-	"109677308410875904": craww,
-	"141189864287633408": redst,
 }
 
 const second = 1000
 
+const messageImage =
+	"https://media.discordapp.net/attachments/1002711688526704856/1093826353838702602/image.png"
+
 export function processDmc(message: Message) {
+	if (message.channelId !== "1091079647028052061") return
+	if (message.content === "") return
 	if (message.author.bot) return
 
 	if (
@@ -85,11 +93,11 @@ export function processDmc(message: Message) {
 		if (dmOngoing) return
 		dmOngoing = true
 		message.reply(
-			`<@&1005525681385508864> **DMC has [NOT] started!** Your initial positions are **\`${printPosition(
+			`<@&1005525681385508864> **DMC has started!** Your initial positions are **\`${printPosition(
 				whims.pos
 			)}\`** for Whims 💜, and **\`${printPosition(
 				wimpz.pos
-			)}\`** for Wimp 💚\n\n Good luck! 🦴\n\n[CRAWS NOTE: THE TEST MAZE IS LOADED IN. SO WE'RE PLAYING PRETEND. just to test if yall can navigate and the walls work fine and stuff. the actual maze will be loaded in later when the dm starts for real]\nhttps://cdn.discordapp.com/attachments/1002711688526704856/1093822069105500160/image.png`
+			)}\`** for Wimp 💚\n\n Good luck! 🦴\n\n${messageImage}`
 		)
 		console.log("DMC STARTED. Players: ", players)
 		return
@@ -131,9 +139,9 @@ export function processDmc(message: Message) {
 			if (dmOngoing) console.log(`Cooldown for ${player.name} ended`)
 		}, player.moveRefresh - Date.now())
 		message.reply(
-			`This submission bonks. Your cooldown ends <t:${Math.round(
-				player.moveRefresh / 1000
-			)}:R>`
+			`This submission bonks, you remain at \`${printPosition(
+				player.pos
+			)}\`. Your cooldown ends <t:${Math.round(player.moveRefresh / 1000)}:R>`
 		)
 		console.log(
 			`Travel failed at step ${result.failedStep}\n${path}\n${"^".padStart(
