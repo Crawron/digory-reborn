@@ -10,6 +10,7 @@ import { mirrorCommandGroup } from "./commands/definitions/mirror.js"
 import { handleMirror } from "./message-mirror.js"
 import { avatarsCommand } from "./commands/definitions/avatars.js"
 import { announceCommandGroup } from "./commands/definitions/announce.js"
+import { processDmc } from "./maze-dm/process-dmc.js"
 
 const discordClient = new Client({
 	intents: ["GuildMessages", "Guilds", "MessageContent", "GuildMembers"],
@@ -26,5 +27,6 @@ handleCommands(discordClient, env.DISCORD_SERVER_ID, [
 
 discordClient.on("ready", () => console.info("🦮 Ready"))
 discordClient.on("messageCreate", handleMirror)
+discordClient.on("messageCreate", processDmc)
 
 discordClient.login(env.DISCORD_BOT_TOKEN)
